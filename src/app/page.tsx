@@ -1,9 +1,17 @@
 import { FeatureCard } from "@/components/FeatureCard";
 import { Button } from "@/components/ui/button";
+import { signIn } from "@/lib/auth";
 import { ArrowRight, HandCoins, Heart, Shield, Zap } from "lucide-react";
 
-
 export default function Home() {
+  async function handleRegister() {
+    "use server";
+
+    await signIn("github", {
+      redirectTo: "/dashboard",
+    });
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-white to-gray-50">
       <header className="container mx-auto py-6 px-4">
@@ -28,12 +36,12 @@ export default function Home() {
               </h1>
 
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Receba doações diretamente dos seus seguidores através de uma página personalizada e elegante, sem
-                complicações.
+                Receba doações diretamente dos seus seguidores através de uma
+                página personalizada e elegante, sem complicações.
               </p>
 
               <div className="pt-4">
-                <form>
+                <form action={handleRegister}>
                   <Button
                     type="submit"
                     size="lg"
@@ -45,7 +53,6 @@ export default function Home() {
                 </form>
               </div>
             </div>
-
           </div>
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
