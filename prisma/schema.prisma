@@ -12,18 +12,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  username      String?   @unique
-  bio           String?
-
-  accounts      Account[]
-  sessions      Session[]
+  id                       String          @id @default(cuid())
+  name                     String?
+  email                    String          @unique
+  emailVerified            DateTime?
+  image                    String?
+  username                 String?         @unique
+  bio                      String?
+  connectedStripeAccountId String?
+  accounts                 Account[]
+  sessions                 Session[]
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  Authenticator            Authenticator[]
 
   donations Donation[] @relation("UserDonation")
 
