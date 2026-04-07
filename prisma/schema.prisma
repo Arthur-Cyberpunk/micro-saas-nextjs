@@ -1,7 +1,8 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -25,28 +26,28 @@ model User {
   // Optional for WebAuthn support
   Authenticator            Authenticator[]
 
-  donations Donation[] @relation("UserDonation")
+  donations Donation[] @relation("UserDonations")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Donation {
-  id           String  @id @default(cuid())
+  id           String @id @default(cuid())
   amount       Int
-  donorName    String
-  donorMessage String?
+  donorName    String // Nome do doador
+  donorMessage String // A mensagem da pessoa que fez a doação
 
   userId String
 
-  user      User          @relation("UserDonation", fields: [userId], references: [id])
-  createdAt DateTime      @default(now())
-  status    PaymentStatus @default(PENDING)
+  user      User           @relation("UserDonations", fields: [userId], references: [id])
+  createdAt DateTime       @default(now())
+  status    PaymanetStatus @default(PENDING)
 }
 
-enum PaymentStatus {
+enum PaymanetStatus {
   PENDING
-  COMPLETED
+  PAID
   FAILED
 }
 
